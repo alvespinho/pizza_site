@@ -11,7 +11,7 @@ def create_app():
                 static_folder='static',
                 template_folder='templates')
 
-    app.config['SECRET_KEY'] = "chave-muito-secreta-da-pizzaria"
+    app.config['SECRET_KEY'] = "#TONOHUB"
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pizzaria.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

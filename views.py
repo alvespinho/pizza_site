@@ -1,13 +1,13 @@
-from flask import render_template
+from flask import render_template, request
 
 def init_app(app):
+
     @app.route('/')
     def home():
         return render_template('home.html')
 
     @app.route('/pedido')
-    def cardapio():
-        # Aqui só passo dados (nome, descricao e o NOME DO ARQUIVO de imagem)
+    def pedido():
         pizzas = [
             {"nome": "Pepperoni", "descricao": "Molho, mussarela e pepperoni.", "img_file": "pepperoni.jpg"},
             {"nome": "4 Queijos", "descricao": "Molho, mussarela, gorgonzola, parmesão e cheddar.", "img_file": "4queijos.jpg"},
@@ -16,6 +16,18 @@ def init_app(app):
             {"nome": "Champignon", "descricao": "Molho, mussarela, champignon e azeitona.", "img_file": "champignon.jpg"},
             {"nome": "Atum", "descricao": "Molho, mussarela, atum, cebola e azeitona.", "img_file": "atum.jpg"},
             {"nome": "Shitake", "descricao": "Molho, mussarela, shitake e azeitona.", "img_file": "shitake.jpg"},
-            {"nome": "Chocolate", "descricao": "Molho, mussarela, chocolate.", "img_file": "chocolate.jpeg"},
+            {"nome": "Chocolate", "descricao": "Mussarela, chocolate.", "img_file": "chocolate.jpeg"},
         ]
-        return render_template('pedido.html', pizzas=pizzas)
+        return render_template("pedido.html", pizzas=pizzas)
+
+    @app.route('/finalizar_pedido', methods=["POST"])
+    def finalizar_pedido():
+
+        sabores = request.form.getlist("sabores")
+        tamanho = request.form.get("tamanho")
+
+        return render_template(
+            "finalizar.html",
+            sabores=sabores,
+            tamanho=tamanho
+        )
